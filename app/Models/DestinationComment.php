@@ -25,4 +25,11 @@ class DestinationComment extends Model
     {
         return $this->belongsTo(User::class, 'responder_id');
     }
+
+    public function scopeIsMine($query, $user)
+    {
+        return $user->role === 'user' ? $query->whereHas('destination', function ($query1) use ($user) {
+            $query1->where('storyteller_id', $user->id);
+        }) : $query;
+    }
 }

@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\DestinationCommentController;
 use App\Http\Controllers\DestinationController;
+use App\Http\Controllers\PublicController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -16,9 +18,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-})->name('landing');
+Route::get('/', [PublicController::class, 'index'])->name('landing');
+Route::get('/all-destinations', [PublicController::class, 'destinations'])->name('destinations.list');
+Route::get('/view/{destination}', [PublicController::class, 'destination'])->name('destination.view');
+Route::post('/view/{destination}/comment', [PublicController::class, 'comment'])->name('destination.comment');
 
 Auth::routes();
 
@@ -34,4 +37,9 @@ Route::middleware(['auth'])->group(function () {
 
     Route::resource('admins', AdminController::class);
     Route::get('admins/{admin}/delete', [AdminController::class, 'destroy'])->name('admins.destroy');
+
+    Route::resource('comments', DestinationCommentController::class)
+        ->only(['index', 'show']);
+    Route::get('comments/{comment}/delete', [DestinationCommentController::class, 'destroy'])->name('comments.destroy');
+    Route::post('comments/{comment}/reply', [DestinationCommentController::class, 'reply'])->name('comments.reply');
 });

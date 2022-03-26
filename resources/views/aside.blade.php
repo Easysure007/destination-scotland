@@ -43,7 +43,10 @@ function isActiveLink($name) {
             </li>
             @endif
             <li class="nav-item">
-                <a href="#" class="nav-link align-middle px-0">
+                <a href="{{ route('comments.index') }}" @class([
+                    'nav-link align-middle px-0',
+                    'active' => isActiveLink('comments')
+                ]) @if(isActiveLink('comments')) aria-current="page" @endif>
                     <i class="fs-4 bi-house"></i> <span class="ms-1 d-none d-sm-inline">Comments</span>
                 </a>
             </li>

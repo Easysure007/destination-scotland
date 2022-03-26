@@ -41,10 +41,10 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                     <ul class="navbar-nav ms-auto mb-2 mb-md-0">
                         <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" href="{{ route('landing') }}">Home</a>
+                            <a class="nav-link" aria-current="page" href="{{ route('landing') }}">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('destinations.list') }}">Destinations</a>
+                            <a class="nav-link active" href="{{ route('destinations.list') }}">Destinations</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
@@ -72,29 +72,10 @@
     </header>
 
     <main>
-        <div id="myCarousel" class="carousel slide" data-bs-ride="carousel">
-            <div class="carousel-indicators">
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="0" class="active"
-                    aria-current="true" aria-label="Slide 1"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-                <button type="button" data-bs-target="#myCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-            </div>
-            <div class="carousel-inner">
-                <div class="carousel-item active" id="banner-1">
-                    <div class="container">
-                        <div class="carousel-caption text-start">
-                            <h1>Welcome to {{ config('app.name') }}.</h1>
-                            <p>Explore destinations in scotland.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
                 <div class="col-md-10 offset-md-1">
-                    <h3>Destinations</h3>
+                    <h3 class="fw-bold">Destinations</h3>
                     <hr>
 
                     @foreach ($data as $destination)
@@ -109,7 +90,7 @@
                         @endphp
                         <div
                             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                            <div class="col-md-6 overflow-hidden">
+                            <div class="col-md-6 overflow-hidden" style="max-height: 300px;">
                                 @if (count($files))
                                     <img src="{{ $files[0] }}" alt="{{ $destination->name }}" class="img-thumbnail">
                                 @else

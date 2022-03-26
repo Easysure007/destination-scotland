@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\DestinationComment;
 use Illuminate\Http\Request;
 
 class DestinationCommentController extends Controller
@@ -13,28 +14,11 @@ class DestinationCommentController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $comments = DestinationComment::isMine(auth()->user())->with('destination')->get();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
+        return view('comments.index', [
+            'data' => $comments
+        ]);
     }
 
     /**
@@ -45,18 +29,9 @@ class DestinationCommentController extends Controller
      */
     public function show($id)
     {
-        //
-    }
+        $comment = DestinationComment::isMine(auth()->user())->with('destination')->find($id);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
-    {
-        //
+        return view('comments.show', ['data' => $comment]);
     }
 
     /**
@@ -66,9 +41,28 @@ class DestinationCommentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function reply(Request $request, $id)
     {
-        //
+        $user = auth()->user();
+
+        $this->validate($request, [
+            'comment' => 'required'
+        ], [
+            'comment.required' => 'Enter your comment or question'
+        ]);
+
+        $parent = DestinationComment::findOrFail($id);
+
+        DestinationComment::create([
+            'name' => $user->name,
+            'comment' => $request->comment,
+            'responder_id' => $user->id,
+            'parent_id' => $id,
+            'destination_id' => $parent->id
+        ]);
+
+        return back()->with('action.success', 'Response submitted');
+
     }
 
     /**
@@ -79,6 +73,10 @@ class DestinationCommentController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $comment = DestinationComment::findOrFail($id);
+
+        $comment->delete();
+
+        return to_route('comments.index')->with('action.success', 'Comment deleted');
     }
 }

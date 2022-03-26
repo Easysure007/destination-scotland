@@ -20,4 +20,9 @@ class Destination extends Model
     {
         return $user->role === 'user' ? $query->where('storyteller_id', $user->id) : $query;
     }
+
+    public function comments()
+    {
+        return $this->hasMany(DestinationComment::class);
+    }
 }
