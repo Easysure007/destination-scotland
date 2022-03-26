@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -13,7 +15,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::isStoryTeller()->get();
+
+        return view('users.index', [
+            'data' => $users
+        ]);
     }
 
     /**
@@ -23,7 +29,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        return view('users.create');
     }
 
     /**
@@ -34,7 +40,29 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users,email',
+            'password' => 'required|confirmed',
+            'status' => 'required',
+        ], [
+            'name.required' => 'Name is rquired',
+            'email.required' => 'Email is rquired',
+            'email.unique' => 'Email already exists',
+            'password.required' => 'Password is required',
+            'password.confirmed' => 'Password does not match',
+            'status' => 'Status is required',
+        ]);
+
+        $destination = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => Hash::make($request->input('password')),
+            'status' => $request->input('status'),
+            'role' => 'user'
+        ]);
+
+        return to_route('users.index')->with('action.success', 'User added successfully');
     }
 
     /**
@@ -45,7 +73,8 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        $user =  User::isStoryTeller()->find($id);
+        return view('users.show', ['data' => $user]);
     }
 
     /**
@@ -56,7 +85,8 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $user =  User::isStoryTeller()->find($id);
+        return view('users.edit', ['data' => $user]);
     }
 
     /**
@@ -68,7 +98,35 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required',
+            'email' => 'required|unique:users,email,'.$id,
+            'password' => 'sometimes|confirmed',
+            'status' => 'required',
+        ], [
+            'name.required' => 'Name is rquired',
+            'email.required' => 'Email is rquired',
+            'email.unique' => 'Email already exists',
+            'password.sometimes' => 'Password is required',
+            'password.confirmed' => 'Password does not match',
+            'status' => 'Status is required',
+        ]);
+
+        $user = User::isStoryTeller()->findOrFail($id);
+
+        $updateData = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'status' => $request->input('status')
+        ];
+
+        if (!is_null($request->password)) {
+            $updateData['password'] = Hash::make($request->password);
+        }
+
+        $user->update($updateData);
+
+        return to_route('users.index')->with('action.success', 'User updated successfully');
     }
 
     /**
@@ -79,6 +137,10 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::isStoryTeller()->findOrFail($id);
+
+        $user->delete();
+
+        return to_route('users.index')->with('action.success', 'User deleted');
     }
 }

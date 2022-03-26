@@ -21,7 +21,8 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'role'
+        'role',
+        'status'
     ];
 
     /**
@@ -46,5 +47,10 @@ class User extends Authenticatable
     public function scopeIsAdmin($query)
     {
         return $query->where('role', 'admin');
+    }
+
+    public function scopeIsStoryTeller($query)
+    {
+        return $query->where('role', 'user');
     }
 }

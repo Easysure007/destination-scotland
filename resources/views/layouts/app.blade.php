@@ -32,6 +32,7 @@
 
     <!-- Styles -->
     {{-- <link href="{{ asset('css/app.css') }}" rel="stylesheet"> --}}
+    <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/sidebars.css') }}">
 </head>
 
@@ -96,18 +97,36 @@
         </div>
     </nav>
 
-    <main>
+    <main style="margin-bottom: 20px;">
         <div class="container-fluid">
             <div class="row flex-nowrap">
                 @include('aside')
                 <div class="col py-3">
+                    @if (session('action.success') || session('action.error'))
+                    <div class="toast-container position-absolute p-3 top-0 start-50 translate-middle-x" id="toastPlacement">
+                        <div @class(['toast align-items-center text-white border-0', 'bg-success' => session('action.success'),
+                        'bg-danger' => session('action.error')]) role="alert" aria-live="assertive" aria-atomic="true">
+                            <div class="d-flex">
+                                <div class="toast-body">
+                                    @if (session('action.success'))
+                                        {{ session('action.success') }}
+                                    @endif
+                                    @if (session('action.error'))
+                                        {{ session('action.error') }}
+                                    @endif
+                                </div>
+                                <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                            </div>
+                        </div>
+                    </div>
+                    @endif
                     @yield('content')
                 </div>
             </div>
         </div>
     </main>
 
-    <footer class="container p-3">
+    <footer class="container p-3 fixed-bottom bg-white">
         <p class="float-end"><a href="#">Back to top</a></p>
         <p>&copy; 2022 {{ config('app.name') }}</p>
     </footer>
@@ -116,6 +135,15 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/sidebars.js') }}"></script>
+
+    <script>
+        (() => {
+            var toastElList = [].slice.call(document.querySelectorAll('.toast'));
+            var toastList = toastElList.map(function (toastEl) {
+                return new bootstrap.Toast(toastEl)
+            });
+        })();
+    </script>
 </body>
 
 </html>

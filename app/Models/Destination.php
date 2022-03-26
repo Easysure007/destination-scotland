@@ -15,4 +15,9 @@ class Destination extends Model
     {
         return $this->belongsTo(User::class, 'storyteller_id');
     }
+
+    public function scopeIsMine($query, $user)
+    {
+        return $user->role === 'user' ? $query->where('storyteller_id', $user->id) : $query;
+    }
 }

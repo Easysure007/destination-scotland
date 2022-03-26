@@ -1,23 +1,50 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-8 m-5">
+            <div class="h4">Welcome back</div>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-md-4 mb-4">
             <div class="card">
-                <div class="card-header">{{ __('Dashboard') }}</div>
-
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success" role="alert">
-                            {{ session('status') }}
-                        </div>
-                    @endif
-
-                    {{ __('You are logged in!') }}
+                <div class="card-body text-center">
+                    <h2 class="display-3 fw-bold">
+                        {{ $destinations }}
+                    </h2>
+                    <h3>Destinations</h3>
+                    <p>view</p>
                 </div>
             </div>
         </div>
+        @if(auth()->user()->role === 'admin')
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="display-3 fw-bold">
+                        {{ $users }}
+                    </h2>
+                    <h3>Users</h3>
+                    <p>view</p>
+                </div>
+            </div>
+        </div>
+        @else
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h2 class="display-3 fw-bold">
+                        {{ $comments }}
+                    </h2>
+                    <h3>Comments</h3>
+                    <p>view</p>
+                </div>
+            </div>
+        </div>
+        @endif
     </div>
 </div>
 @endsection
