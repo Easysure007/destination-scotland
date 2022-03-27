@@ -109,7 +109,7 @@
                         @endphp
                         <div
                             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
-                            <div class="col-md-6 overflow-hidden">
+                            <div class="col-md-6 overflow-hidden" style="height: 300px; overflow:hidden;">
                                 @if (count($files))
                                     <img src="{{ $files[0] }}" alt="{{ $destination->name }}" class="img-thumbnail">
                                 @else
