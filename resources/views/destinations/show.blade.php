@@ -27,7 +27,7 @@
                         @foreach ($files as $file)
                             <li class="d-flex justify-content-between align-items-center">
                                 <a href="{{ $file['url'] }}" target="_blank" title="View File">
-                                    <img src="{{ $file['url'] }}" alt="Image" class="img-thumbnail" style="max-width: 200px;">
+                                    <img src="{{ asset($file['url'] )}}" alt="Image" class="img-thumbnail" style="max-width: 200px;">
                                 </a>
                             </li>
                         @endforeach

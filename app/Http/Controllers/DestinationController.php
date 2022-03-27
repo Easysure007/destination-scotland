@@ -59,7 +59,7 @@ class DestinationController extends Controller
 
         foreach($images  as $image) {
             $destinationPath = 'public/destination-files/'.date('Y-m-d');
-            $fileName = time() . "." . $image->getClientOriginalExtension();
+            $fileName = time() . rand(10, 9999) . "." . $image->getClientOriginalExtension();
             $stored = $image->storeAs($destinationPath, $fileName);
 
             $filePaths[] = $stored;
@@ -181,7 +181,7 @@ class DestinationController extends Controller
 
         foreach($images  as $image) {
             $destinationPath = 'public/destination-files/'.date('Y-m-d');
-            $fileName = time() . "." . $image->getClientOriginalExtension();
+            $fileName = time() . rand(10, 9999) . "." . $image->getClientOriginalExtension();
             $stored = $image->storeAs($destinationPath, $fileName);
 
             $filePaths[] = $stored;

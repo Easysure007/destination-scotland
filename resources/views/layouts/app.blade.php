@@ -15,8 +15,7 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 
     <style>
         /* body {
@@ -126,13 +125,12 @@
         </div>
     </main>
 
-    <footer class="container p-3 fixed-bottom bg-white">
+    <footer class="container p-3 bg-white">
         <p class="float-end"><a href="#">Back to top</a></p>
         <p>&copy; 2022 {{ config('app.name') }}</p>
     </footer>
 
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" crossorigin="anonymous">
     </script>
     <script src="{{ asset('js/sidebars.js') }}"></script>
 

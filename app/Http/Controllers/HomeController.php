@@ -37,8 +37,8 @@ class HomeController extends Controller
             $data['users'] = $users;
         }
 
-        $data['destinations'] = Destination::count();
-        $data['comments'] = DestinationComment::count();
+        $data['destinations'] = Destination::isMine(auth()->user())->count();
+        $data['comments'] = DestinationComment::isMine(auth()->user())->count();
 
         return view('home', $data);
     }

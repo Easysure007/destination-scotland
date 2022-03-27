@@ -11,8 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 
     <style>
 
@@ -82,7 +81,7 @@ foreach ($images as $image) {
             <div class="row">
                 <div class="col-md-12 h-25 overflow-hidden">
                     @if (count($files))
-                        <img src="{{ $files[0] }}" alt="{{ $destination->name }}" class="img-fluid">
+                        <img src="{{ asset($files[0]) }}" alt="{{ $destination->name }}" class="img-fluid">
                     @else
                         <img src="https://via.placeholder.com/200x150" alt="No Picture">
                     @endif
@@ -93,7 +92,7 @@ foreach ($images as $image) {
                     @foreach ($files as $idx => $file)
                         @if ($idx > 0)
                             <div class="col-md-3 overflow-hidden" style="height: 200px; overflow:hidden;">
-                                <a href="{{ $file }}" target="_blank" title="View Image"><img src="{{ $file }}" class="img-thumbnail"></a>
+                                <a href="{{ $file }}" target="_blank" title="View Image"><img src="{{ asset($file) }}" class="img-thumbnail"></a>
                             </div>
                         @endif
                     @endforeach
@@ -167,8 +166,7 @@ foreach ($images as $image) {
         </footer>
     </main>
 
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" crossorigin="anonymous">
     </script>
 </body>
 

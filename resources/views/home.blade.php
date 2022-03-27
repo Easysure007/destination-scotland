@@ -16,7 +16,7 @@
                         {{ $destinations }}
                     </h2>
                     <h3>Destinations</h3>
-                    <p>view</p>
+                    <a href="{{ route('destinations.index') }}">view</a>
                 </div>
             </div>
         </div>
@@ -28,7 +28,7 @@
                         {{ $users }}
                     </h2>
                     <h3>Users</h3>
-                    <p>view</p>
+                    <a href="{{ route('users.index') }}">view</a>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
                         {{ $comments }}
                     </h2>
                     <h3>Comments</h3>
-                    <p>view</p>
+                    <a href="{{ route('comments.index') }}">view</a>
                 </div>
             </div>
         </div>

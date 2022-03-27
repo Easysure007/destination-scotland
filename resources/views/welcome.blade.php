@@ -11,8 +11,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet"
-        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" crossorigin="anonymous">
 
     <style>
         /* body {
@@ -106,19 +105,21 @@
                             foreach ($images as $image) {
                                 $files[] = Storage::url($image);
                             }
+
+                            $storyContent = strlen($destination->description) > 300 ? substr($destination->description, 0, 300) . '...' : $destination->description;
                         @endphp
                         <div
                             class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
                             <div class="col-md-6 overflow-hidden" style="height: 300px; overflow:hidden;">
                                 @if (count($files))
-                                    <img src="{{ $files[0] }}" alt="{{ $destination->name }}" class="img-thumbnail">
+                                    <img src="{{ asset($files[0]) }}" alt="{{ $destination->name }}" class="img-thumbnail">
                                 @else
                                     <img src="https://via.placeholder.com/200x150" alt="No Picture">
                                 @endif
                             </div>
                             <div class="col-6 p-4 d-flex flex-column position-static">
                                 <h3 class="mb-0">{{ $destination->name }}</h3>
-                                <p class="card-text mb-auto">{{ $destination->description }}</p>
+                                <p class="card-text mb-auto">{{ $storyContent }}</p>
                                 <a href="{{ route('destination.view', ['destination' => $destination->id]) }}" class="stretched-link">View destination</a>
                             </div>
                         </div>
@@ -133,8 +134,7 @@
         </footer>
     </main>
 
-    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous">
+    <script src="{{ asset('bootstrap/js/bootstrap.bundle.min.js') }}" crossorigin="anonymous">
     </script>
 </body>
 

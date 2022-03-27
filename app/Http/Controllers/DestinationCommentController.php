@@ -57,8 +57,8 @@ class DestinationCommentController extends Controller
             'name' => $user->name,
             'comment' => $request->comment,
             'responder_id' => $user->id,
-            'parent_id' => $id,
-            'destination_id' => $parent->id
+            'parent_id' => $parent->id,
+            'destination_id' => $parent->destination_id
         ]);
 
         return back()->with('action.success', 'Response submitted');
